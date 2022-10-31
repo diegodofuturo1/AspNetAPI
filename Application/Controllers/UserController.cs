@@ -4,11 +4,13 @@ using Service.Interfaces;
 using System.Threading.Tasks;
 using Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Application.Controllers
 {
     [ApiController]
     [Route("user")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IMapper mapper;

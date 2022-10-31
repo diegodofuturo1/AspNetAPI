@@ -16,6 +16,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Application.Token;
 
 namespace Application
 {
@@ -33,6 +37,30 @@ namespace Application
         {
             services.AddControllers();
             services.AddSingleton(config => Configuration);
+
+            #region Jwt
+
+            var secretKey = Configuration["Jwt:Key"];
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
+            #endregion
 
             #region AutoMapper
 
@@ -66,9 +94,10 @@ namespace Application
             #region Services
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITokenService, TokenService>();
 
             #endregion
-                
+
             #region Swagger
 
             services.AddSwaggerGen(config =>
@@ -86,26 +115,26 @@ namespace Application
                     },
                 });
 
-                //config.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                //{
-                //    In = ParameterLocation.Header,
-                //    Description = "Por favor utilize Bearer <TOKEN>",
-                //    Name = "Authorization",
-                //    Type = SecuritySchemeType.ApiKey
-                //});
-                //config.AddSecurityRequirement(new OpenApiSecurityRequirement {
-                //{
-                //    new OpenApiSecurityScheme
-                //    {
-                //        Reference = new OpenApiReference
-                //        {
-                //            Type = ReferenceType.SecurityScheme,
-                //            Id = "Bearer"
-                //        }
-                //    },
-                //    new string[] { }
-                //}
-                //});
+                config.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Por favor utilize Bearer <TOKEN>",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                config.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new string[] { }
+                }
+                });
             });
 
             #endregion
@@ -124,9 +153,8 @@ namespace Application
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Manager.API v1"));
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
