@@ -1,8 +1,10 @@
 using System;
 using AutoMapper;
+using System.Text;
 using Service.Dtos;
 using Domain.Entities;
 using Service.Services;
+using Application.Token;
 using Service.Interfaces;
 using Application.ViewModels;
 using Infrastructure.Contexts;
@@ -14,12 +16,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Application.Token;
 
 namespace Application
 {
@@ -32,7 +32,6 @@ namespace Application
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();

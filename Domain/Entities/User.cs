@@ -1,7 +1,5 @@
-﻿using System;
+﻿using Domain.Validators;
 using System.Collections.Generic;
-using System.Text;
-using Domain.Validators;
 
 namespace Domain.Entities
 {
