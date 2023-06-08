@@ -2,9 +2,9 @@
 using AutoMapper;
 using Service.Dtos;
 using Domain.Entities;
+using Domain.Interfaces;
 using Service.Interfaces;
 using System.Threading.Tasks;
-using Infrastructure.Interfaces;
 using System.Collections.Generic;
 
 namespace Service.Services
