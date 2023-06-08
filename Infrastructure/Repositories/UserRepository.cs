@@ -1,16 +1,16 @@
 ﻿using System;
 using Domain.Entities;
+using Domain.Interfaces;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 using Infrastructure.Contexts;
-using Infrastructure.Interfaces;
 using System.Collections.Generic;
 
 namespace Infrastructure.Repositories
 {
     public class UserRepository: BaseRepository<User>, IUserRepository
     {
-        public UserRepository(UserContext context): base(context)
+        public UserRepository(ApiContext context): base(context)
         {
         }
 

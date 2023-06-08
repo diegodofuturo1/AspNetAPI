@@ -2,10 +2,10 @@
 using Xunit;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Interfaces;
 using Service.Services;
 using Service.Interfaces;
 using System.Threading.Tasks;
-using Infrastructure.Interfaces;
 
 namespace Teste.Service
 {

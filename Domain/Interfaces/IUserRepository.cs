@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using Domain.Entities;
 using System.Threading.Tasks;
-using Domain.Entities;
+using System.Collections.Generic;
 
-namespace Infrastructure.Interfaces
+namespace Domain.Interfaces
 {
     public interface IUserRepository: IBaseRepository<User>
     {

@@ -2,12 +2,14 @@
 using FluentValidation;
 using FluentValidation.Results;
 using System.Collections.Generic;
+using System;
 
 namespace Domain.Entities
 {
     public abstract class Base
     {
         public long Id { get; set; }
+        public Guid Guid { get; set; }
 
         internal List<string> _errors;
 

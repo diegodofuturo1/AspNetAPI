@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using Domain.Entities;
+using Domain.Interfaces;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 using Infrastructure.Contexts;
-using Infrastructure.Interfaces;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,9 +12,9 @@ namespace Infrastructure.Repositories
 {
     public class BaseRepository<T>: IBaseRepository<T> where T: Base
     {
-        protected readonly UserContext context;
+        protected readonly ApiContext context;
 
-        public BaseRepository(UserContext context)
+        public BaseRepository(ApiContext context)
         {
             this.context = context;
         }

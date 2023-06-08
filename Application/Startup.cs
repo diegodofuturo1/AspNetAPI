@@ -3,13 +3,13 @@ using AutoMapper;
 using System.Text;
 using Service.Dtos;
 using Domain.Entities;
+using Domain.Interfaces;
 using Service.Services;
 using Application.Token;
 using Service.Interfaces;
 using Application.ViewModels;
 using Infrastructure.Contexts;
 using Microsoft.OpenApi.Models;
-using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -76,7 +76,7 @@ namespace Application
 
             #region Database
 
-            services.AddDbContext<UserContext>(options => options
+            services.AddDbContext<ApiContext>(options => options
                 .UseSqlServer(Configuration["ConnectionStrings:SqlServer"])
                 .EnableSensitiveDataLogging()
                 .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole())),
