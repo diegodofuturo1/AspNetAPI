@@ -13,26 +13,19 @@ namespace Infrastructure.Mappings
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
-                .UseIdentityColumn()
-                .HasColumnType("BIGINT");
+                .UseIdentityColumn();
 
             builder.Property(x => x.Name)
                 .IsRequired()
-                .HasMaxLength(80)
-                .HasColumnName("name")
-                .HasColumnType("VARCHAR(80)");
+                .HasMaxLength(80);
 
             builder.Property(x => x.Password)
                 .IsRequired()
-                .HasMaxLength(1000)
-                .HasColumnName("password")
-                .HasColumnType("VARCHAR(1000)");
+                .HasMaxLength(1000);
 
             builder.Property(x => x.Email)
                 .IsRequired()
-                .HasMaxLength(180)
-                .HasColumnName("email")
-                .HasColumnType("VARCHAR(180)");
+                .HasMaxLength(180);
         }
     }
 }

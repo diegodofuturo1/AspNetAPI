@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using FluentValidation;
 using FluentValidation.Results;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ namespace Domain.Entities
     public abstract class Base
     {
         public long Id { get; set; }
-        public Guid Guid { get; set; }
+        public bool Active { get; set; } = true;
 
         internal List<string> _errors;
 

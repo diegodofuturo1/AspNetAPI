@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Domain.Entities;
 using Domain.Interfaces;
 using System.Threading.Tasks;
@@ -10,7 +10,7 @@ namespace Infrastructure.Repositories
 {
     public class ContributionRepository: BaseRepository<Contribution>, IContributionRepository
     {
-        public ContributionRepository(ApiContext context): base(context)
+        public ContributionRepository()
         {
         }
     }

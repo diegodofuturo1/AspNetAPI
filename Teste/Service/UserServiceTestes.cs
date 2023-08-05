@@ -30,7 +30,7 @@ namespace Teste.Service
             var userDto = Fixture.UserFixture.GetValidUserDto();
             var user = mapper.Map<User>(userDto);
 
-            repository.Setup(r => r.CreateAsync(It.IsAny<User>())).ReturnsAsync(() => user);
+            repository.Setup(r => r.InsertAsync(It.IsAny<User>())).ReturnsAsync(() => user);
 
             var result = await service.CreateAsync(userDto);
 

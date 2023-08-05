@@ -14,11 +14,11 @@ namespace Teste.Configuration
                 cfg.CreateMap<User, UserDto>()
                     .ReverseMap();
 
-                cfg.CreateMap<CreateUserViewModel, UserDto>()
-                    .ReverseMap();
+                //cfg.CreateMap<CreateBuilderViewModel, UserDto>()
+                //    .ReverseMap();
 
-                cfg.CreateMap<UpdateUserViewModel, UserDto>()
-                    .ReverseMap();
+                //cfg.CreateMap<UpdateBuilderViewModel, UserDto>()
+                //    .ReverseMap();
             });
 
             return autoMapperConfig.CreateMapper();

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Domain.Entities;
 using Domain.Interfaces;
 using System.Threading.Tasks;
@@ -10,7 +10,7 @@ namespace Infrastructure.Repositories
 {
     public class UserRepository: BaseRepository<User>, IUserRepository
     {
-        public UserRepository(ApiContext context): base(context)
+        public UserRepository()
         {
         }
 
@@ -18,7 +18,7 @@ namespace Infrastructure.Repositories
         {
             Expression<Func<User, bool>> filter = user => user.Email.ToLower() == email.ToLower();
 
-            return await GetAsync(filter);
+            return await SelectAsync(filter);
         }
 
         public async Task<IList<User>> SearchByEmailAsync(string email)

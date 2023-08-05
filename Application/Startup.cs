@@ -7,7 +7,6 @@ using Domain.Interfaces;
 using Service.Services;
 using Application.Token;
 using Service.Interfaces;
-using Application.ViewModels;
 using Infrastructure.Contexts;
 using Microsoft.OpenApi.Models;
 using Infrastructure.Repositories;
@@ -66,27 +65,25 @@ namespace Application
             var autoMapperConfig = new MapperConfiguration(config =>
             {
                 config.CreateMap<User, UserDto>().ReverseMap();
-                config.CreateMap<CreateUserViewModel, UserDto>().ReverseMap();
-                config.CreateMap<UpdateUserViewModel, UserDto>().ReverseMap();
             });
 
             services.AddSingleton(autoMapperConfig.CreateMapper());
 
-            #endregion
+      #endregion
 
-            #region Database
+      #region Database
 
-            services.AddDbContext<ApiContext>(options => options
-                .UseSqlServer(Configuration["ConnectionStrings:SqlServer"])
-                .EnableSensitiveDataLogging()
-                .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole())),
-            ServiceLifetime.Transient);
+      //services.AddDbContext<ApiContext>(options => options
+      //    .UseSqlServer(Configuration["ConnectionStrings:SqlServer"])
+      //    .EnableSensitiveDataLogging()
+      //    .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole())),
+      //ServiceLifetime.Transient);
 
-            #endregion
+      #endregion
 
-            #region Repositories
+      #region Repositories
 
-            services.AddScoped<IUserRepository, UserRepository>();
+      services.AddScoped<IUserRepository, UserRepository>();
 
             #endregion
 
@@ -105,7 +102,7 @@ namespace Application
                 {
                     Title = "API",
                     Version = "v1",
-                    Description = "Aqui est· uma breve descriÁ„o da API",
+                    Description = "Aqui est√° uma breve descri√ß√£o da API",
                     Contact = new OpenApiContact
                     {
                         Name = "Diego Heleno",

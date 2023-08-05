@@ -28,7 +28,7 @@ namespace Service.Services
                 throw new Exception("Email já registrado!");
             }
 
-            var created = await repository.CreateAsync(mapper.Map<User>(userDto));
+            var created = await repository.InsertAsync(mapper.Map<User>(userDto));
 
             if (!created.IsValid)
                 return default;
@@ -39,13 +39,13 @@ namespace Service.Services
 
         public async Task<IList<UserDto>> GetAllAsync()
         {
-            var users = await repository.GetAllAsync();
+            var users = await repository.SelectAllAsync();
             return mapper.Map<IList<UserDto>>(users);
         }
 
         public async Task<UserDto> GetAsync(long id)
         {
-            var user = await repository.GetAsync(id);
+            var user = await repository.SelectAsync(id);
             return mapper.Map<UserDto>(user);
         }
 
@@ -55,9 +55,15 @@ namespace Service.Services
             return mapper.Map<UserDto>(user);
         }
 
+        public async Task RemoveAsync(UserDto obj)
+        {
+            await repository.DeleteAsync(mapper.Map<User>(obj));
+        }
+
         public async Task RemoveAsync(long id)
         {
-            await repository.RemoveAsync(id);
+            var obj = await GetAsync(id);
+             await repository.DeleteAsync(mapper.Map<User>(obj));
         }
 
         public async Task<IList<UserDto>> SearchByEmailAsync(string email)
