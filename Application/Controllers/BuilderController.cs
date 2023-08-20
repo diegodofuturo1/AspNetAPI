@@ -1,14 +1,14 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Domain.Entities;
 using Service.Interfaces;
 using Application.ViewModels;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Application.Attributes;
 
 namespace Application.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("builder")]
     public class BuilderController: ControllerBase
@@ -24,7 +24,8 @@ namespace Application.Controllers
 
         [HttpGet]
         [Route("get-all")]
-        public async Task<IActionResult> GetAsync()
+        [CurrentUserId]
+        public async Task<IActionResult> GetAsync(long userId)
         {
             var builders = await service.ReadAll();
             return Ok(new ResultViewModel()

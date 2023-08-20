@@ -16,9 +16,7 @@ namespace Infrastructure.Repositories
 
         public async Task<User> GetByEmailAsync(string email)
         {
-            Expression<Func<User, bool>> filter = user => user.Email.ToLower() == email.ToLower();
-
-            return await SelectAsync(filter);
+            return await SelectAsync(new { Email = email });
         }
 
         public async Task<IList<User>> SearchByEmailAsync(string email)

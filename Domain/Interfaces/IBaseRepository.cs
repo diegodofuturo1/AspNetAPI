@@ -12,7 +12,7 @@ namespace Domain.Interfaces
         Task<T> DeleteAsync(T obj);
         Task<List<T>> SelectAllAsync();
         Task<T> SelectAsync(long id);
-        Task<T> SelectAsync(Expression<Func<T, bool>> expression, bool asNoTracking = true);
+        Task<T> SelectAsync(object parameters);
         Task<IList<T>> SearchAsync(Expression<Func<T, bool>> expression, bool asNoTracking = true);
 
     }

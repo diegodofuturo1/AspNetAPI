@@ -11,11 +11,11 @@ namespace Domain.Entities
         public long Id { get; set; }
         public bool Active { get; set; } = true;
 
-        internal List<string> _errors;
+        internal List<string> _errors = new List<string>();
 
         public IReadOnlyCollection<string> Errors => _errors;
 
-        public bool IsValid => _errors.Count == 0;
+        //public bool IsValid => _errors.Count == 0;
 
         private void AddErrorList(IList<ValidationFailure> errors)
         {

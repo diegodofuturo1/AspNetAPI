@@ -1,9 +1,9 @@
-﻿
+
 namespace Application.Token
 {
     public interface ITokenService
     {
-        string GenerateToken();
+        string GenerateToken(long id);
     }
     
 }

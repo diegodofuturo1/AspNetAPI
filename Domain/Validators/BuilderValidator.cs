@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Domain.Entities;
 using FluentValidation;
 
@@ -15,18 +15,15 @@ namespace Domain.Validators
                 .NotNull()
                 .WithMessage("A entidade não pode ser nula.");
 
-            RuleFor(x => x.Name)
-                .NotNull()
-                .WithMessage("O nome não pode ser nulo.")
+            RuleFor(x => x.IdUser)
+              .NotNull()
+              .WithMessage("O usuário não pode ser nulo.")
 
-                .NotEmpty()
-                .WithMessage("O nome não pode ser vazio.")
+              .NotEmpty()
+              .WithMessage("O usuário não pode ser vazio.")
 
-                .MinimumLength(3)
-                .WithMessage("O nome deve ter no mínimo 3 caracteres.")
-
-                .MaximumLength(80)
-                .WithMessage("O nome deve ter no máximo 80 caracteres.");
+              .GreaterThan(0)
+              .WithMessage("O usuário está inválido.");
 
             RuleFor(x => x.About)
                 .NotNull()

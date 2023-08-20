@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
+using Application.ViewModels;
 
 namespace Application.Token
 {
@@ -16,7 +17,7 @@ namespace Application.Token
             this.configuration = configuration;
         }
 
-        public string GenerateToken()
+        public string GenerateToken(long id)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -26,8 +27,7 @@ namespace Application.Token
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, configuration["Jwt:Login"]),
-                    new Claim(ClaimTypes.Role, "User")
+                    new Claim(ClaimTypes.Sid, id.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddHours(int.Parse(configuration["Jwt:HoursToExpire"])),
 

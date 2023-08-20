@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 using FluentValidation;
 
 namespace Domain.Validators
@@ -14,47 +14,28 @@ namespace Domain.Validators
                 .NotNull()
                 .WithMessage("A entidade não pode ser nula.");
 
-            RuleFor(x => x.Name)
+            RuleFor(x => x.Cpf)
                 .NotNull()
-                .WithMessage("O nome não pode ser nulo.")
+                .WithMessage("O cpf não pode ser nulo.")
 
                 .NotEmpty()
-                .WithMessage("O nome não pode ser vazio.")
+                .WithMessage("O cpf não pode ser vazio.")
 
-                .MinimumLength(3)
-                .WithMessage("O nome deve ter no mínimo 3 caracteres.")
+                .MinimumLength(11)
+                .WithMessage("O cpf deve ter 11 caracteres.")
 
-                .MaximumLength(80)
-                .WithMessage("O nome deve ter no máximo 80 caracteres.");
+                .MaximumLength(11)
+                .WithMessage("O nome deve ter 11 caracteres.");
 
-            RuleFor(x => x.Password)
-                .NotNull()
-                .WithMessage("A senha não pode ser nula.")
+            RuleFor(x => x.IdUser)
+              .NotNull()
+              .WithMessage("O usuário não pode ser nulo.")
 
-                .NotEmpty()
-                .WithMessage("A senha não pode ser vazia.")
+              .NotEmpty()
+              .WithMessage("O usuário não pode ser vazio.")
 
-                .MinimumLength(6)
-                .WithMessage("A senha deve ter no mínimo 6 caracteres.")
-
-                .MaximumLength(80)
-                .WithMessage("A senha deve ter no máximo 30 caracteres.");
-
-            RuleFor(x => x.Email)
-                .NotNull()
-                .WithMessage("O email não pode ser nulo.")
-
-                .NotEmpty()
-                .WithMessage("O email não pode ser vazio.")
-
-                .MinimumLength(10)
-                .WithMessage("O email deve ter no mínimo 10 caracteres.")
-
-                .MaximumLength(180)
-                .WithMessage("O email deve ter no máximo 180 caracteres.")
-
-                .Matches(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$")
-                .WithMessage("O email informado não é válido.");
-        }
+              .GreaterThan(0)
+              .WithMessage("O usuário está inválido.");
+    }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +8,7 @@ namespace Domain.Entities
 {
     public class Builder: Base
     {
-        public string Name { get; set; }
+        public long IdUser { get; set; }
         public string About { get; set; }
         public string Cnpj { get; set; }
         public string Segment { get; set; }

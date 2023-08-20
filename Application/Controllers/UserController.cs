@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Service.Dtos;
 using Service.Interfaces;
 using System.Threading.Tasks;
@@ -10,7 +10,6 @@ namespace Application.Controllers
 {
     [ApiController]
     [Route("user")]
-    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IMapper mapper;

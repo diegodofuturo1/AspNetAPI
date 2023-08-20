@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Application.ViewModels;
 
 namespace Application
 {
@@ -65,6 +66,8 @@ namespace Application
             var autoMapperConfig = new MapperConfiguration(config =>
             {
                 config.CreateMap<User, UserDto>().ReverseMap();
+                config.CreateMap<User, LoginViewModel>().ReverseMap();
+                config.CreateMap<CreateUserViewModel, UserDto>().ReverseMap();
             });
 
             services.AddSingleton(autoMapperConfig.CreateMapper());
@@ -84,19 +87,29 @@ namespace Application
       #region Repositories
 
       services.AddScoped<IUserRepository, UserRepository>();
+      services.AddScoped<IBuilderRepository, BuilderRepository>();
+      services.AddScoped<IContributionRepository, ContributionRepository>();
+      services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
+      services.AddScoped<IInvestorRepository, InvestorRepository>();
+      services.AddScoped<IWalletRepository, WalletRepository>();
 
-            #endregion
+      #endregion
 
-            #region Services
+      #region Services
 
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ITokenService, TokenService>();
+      services.AddScoped<IUserService, UserService>();
+      services.AddScoped<ITokenService, TokenService>();
+      services.AddScoped<IBuilderService, BuilderService>();
+      services.AddScoped<IContributionService, ContributionService>();
+      services.AddScoped<IEnterpriseService, EnterpriseService>();
+      services.AddScoped<IInvestorService, InvestorService>();
+      services.AddScoped<IWalletService, WalletService>();
 
-            #endregion
+      #endregion
 
-            #region Swagger
+      #region Swagger
 
-            services.AddSwaggerGen(config =>
+      services.AddSwaggerGen(config =>
             {
                 config.SwaggerDoc("v1", new OpenApiInfo
                 {

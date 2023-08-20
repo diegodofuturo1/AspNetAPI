@@ -1,12 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Token;
 using Application.ViewModels;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Service.Dtos;
+using Service.Interfaces;
 
 namespace Application.Controllers
 {
@@ -14,30 +17,36 @@ namespace Application.Controllers
     [Route("auth")]
     public class AuthController : ControllerBase
     {
+        private readonly IMapper mapper;
         private readonly IConfiguration configuration;
         private readonly ITokenService tokenService;
+        private readonly IUserService userService;
 
-        public AuthController(IConfiguration configuration, ITokenService tokenService)
+        public AuthController(IMapper mapper, IConfiguration configuration, ITokenService tokenService, IUserService userService)
         {
+            this.mapper = mapper;
             this.configuration = configuration;
             this.tokenService = tokenService;
+            this.userService = userService;
         }
 
-        [HttpPost]
+        [HttpPost("signin")]
 
-        public IActionResult Login([FromBody] LoginViewModel loginViewModel)
+        public async Task<IActionResult> SignIn([FromBody] LoginViewModel loginViewModel)
         {
-            var tokenLogin = configuration["Jwt:Login"];
-            var tokenPassword = configuration["Jwt:Password"];
+            var user = await userService.GetByEmailAsync(loginViewModel.Login);
 
-            if (loginViewModel.Login == tokenLogin && loginViewModel.Password == tokenPassword)
+            if (user == null)
+              throw new Exception("Usuário não autenticado!");
+
+            if (loginViewModel.Password == user.Password)
                 return Ok(new ResultViewModel
                 {
                     Message = "Usuário autenticado com sucesso!",
                     Success = true,
                     Data = new
                     {
-                        Token = tokenService.GenerateToken(),
+                        Token = tokenService.GenerateToken(user.Id),
                         TokenExpires = DateTime.UtcNow.AddHours(int.Parse(configuration["Jwt:HoursToExpire"]))
                     }
                 });
@@ -47,6 +56,19 @@ namespace Application.Controllers
                     Success = false,
                     Data = null
                 });
+        }
+
+        [HttpPost("signup")]
+        public async Task<IActionResult> SignUp([FromBody] LoginViewModel loginViewModel)
+        {
+          var dto = loginViewModel.ToDomain();
+
+          var user = await userService.CreateAsync(dto);
+
+          if (user != null)
+            return await SignIn(new LoginViewModel(user));
+
+          return Problem();
         }
     }
 }

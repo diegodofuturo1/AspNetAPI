@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AutoMapper;
 using Service.Dtos;
 using Domain.Entities;
@@ -6,6 +6,7 @@ using Domain.Interfaces;
 using Service.Interfaces;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Domain.Exceptions;
 
 namespace Service.Services
 {
@@ -25,15 +26,16 @@ namespace Service.Services
             var user = await GetByEmailAsync(userDto.Email);
 
             if (user != null) {
-                throw new Exception("Email já registrado!");
+                throw new DomainException("Email já registrado!");
             }
 
-            var created = await repository.InsertAsync(mapper.Map<User>(userDto));
+            var entity = mapper.Map<User>(userDto);
 
-            if (!created.IsValid)
-                return default;
+            if (!entity.Validate())
+              throw new DomainException(entity.Errors);
+
+            var created = await repository.InsertAsync(entity);
             
-            created.SetPassword("***********");
             return mapper.Map<UserDto>(created);
         }
 
