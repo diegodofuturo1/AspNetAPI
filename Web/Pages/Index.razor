@@ -1,0 +1,23 @@
+@page "/"
+@using Domain.Entities;
+@using Web.Data;
+@using Web.Compoments;
+
+<PageTitle>Index</PageTitle>
+
+<h1>Investimentos Abertos</h1>
+
+Aqui temos as ofertas disponíveis para você no momento:
+
+<EnterpriseCard Enterprises="@enterprises"></EnterpriseCard>
+
+@code {
+    private List<Enterprise>? enterprises;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var service = new Service<Enterprise>();
+
+        enterprises = await service.GetAll();
+    }
+}

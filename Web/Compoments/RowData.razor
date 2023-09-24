@@ -1,0 +1,11 @@
+<div class="row" style="font-size:small">
+    <div class="col-6 text-start">@Key</div>
+    <div class="col-6 text-end">@Value</div>
+</div>
+
+@code {
+    [Parameter]
+    public string Key { get; set; } = String.Empty;
+    [Parameter]
+    public string Value { get; set; } = String.Empty;
+}

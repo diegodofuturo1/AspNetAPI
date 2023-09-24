@@ -9,6 +9,7 @@ namespace Domain.Entities
     public class Builder: Base
     {
         public long IdUser { get; set; }
+        public string Name { get; set; }
         public string About { get; set; }
         public string Cnpj { get; set; }
         public string Segment { get; set; }

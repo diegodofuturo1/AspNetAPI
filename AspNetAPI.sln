@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32929.386
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{BC90AF11-9ECA-4ECA-A86E-F3E83A3EEB1F}"
 EndProject
@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{802C06F8-78B2-4B2F-A79C-536F1DB96A8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teste", "Teste\Teste.csproj", "{07959CD2-2941-4C1E-AA66-E5AA548CADC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teste", "Teste\Teste.csproj", "{07959CD2-2941-4C1E-AA66-E5AA548CADC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{E5D4D664-1323-45F9-88B0-865C0B63C3F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{07959CD2-2941-4C1E-AA66-E5AA548CADC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07959CD2-2941-4C1E-AA66-E5AA548CADC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07959CD2-2941-4C1E-AA66-E5AA548CADC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5D4D664-1323-45F9-88B0-865C0B63C3F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5D4D664-1323-45F9-88B0-865C0B63C3F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5D4D664-1323-45F9-88B0-865C0B63C3F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5D4D664-1323-45F9-88B0-865C0B63C3F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
