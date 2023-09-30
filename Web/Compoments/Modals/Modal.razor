@@ -1,0 +1,106 @@
+@if (Visible)
+{
+    <div class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@(Title)</h5>
+                </div>
+                <div class="modal-body">
+                    @ChildContent
+                </div>
+                <div class="modal-footer">
+                      <div class="button-header-group">
+                      <button type="button" class="btn btn-success" @onclick=@(SaveChanges)>@(ButtonTextSuccess)</button>
+                        <button type="button" class="btn btn-secondary" @onclick=@(CancelChanges)>@(ButtonTextCancel)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+
+    [Parameter] public bool Visible { get; set; }
+    [Parameter] public string Title { get; set; } = "Exemplo de Título";
+    [Parameter] public string ButtonTextSuccess { get; set; } = "Confirmar";
+    [Parameter] public string ButtonTextCancel { get; set; } = "Cancelar";
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public EventCallback OnSave { get; set; }
+    [Parameter] public EventCallback<bool> ShowModalChanged { get; set; }
+
+    private void SaveChanges()
+    {
+        OnSave.InvokeAsync();
+        ShowModalChanged.InvokeAsync(Visible);
+    }
+
+    private void CancelChanges()
+    {
+        Visible = false;
+        ShowModalChanged.InvokeAsync(Visible);
+    }
+}
+
+<style>
+    .modal {
+        display: block;
+        position: fixed;
+        z-index: 1050;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+        padding-top: 60px;
+    }
+
+    .modal-dialog {
+        margin: auto;
+        width: 50%;
+        max-width: 700px;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    .modal-header, .modal-footer {
+        padding: 15px 20px;
+        background-color: #f5f5f5;
+    }
+
+    .modal-title {
+        display: inline-block;
+    }
+
+    .modal-body {
+        padding: 10px 20px;
+    }
+
+    .modal-footer {
+        text-align: right;
+    }
+
+</style>
+
+<style type="text/css" media="screen and (max-width: 767px) ">
+    .modal-dialog {
+        margin: 0px;
+        width: 100%;
+    }
+
+    .button-header-group {
+        width: 100%;
+    }
+
+    .button-header-group > button {
+        width: 49%;
+    }
+</style>
