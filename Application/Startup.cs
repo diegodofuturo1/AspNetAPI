@@ -66,7 +66,7 @@ namespace Application
             var autoMapperConfig = new MapperConfiguration(config =>
             {
                 config.CreateMap<User, UserDto>().ReverseMap();
-                config.CreateMap<User, LoginViewModel>().ReverseMap();
+                config.CreateMap<User, SignupViewModel>().ReverseMap();
                 config.CreateMap<CreateUserViewModel, UserDto>().ReverseMap();
             });
 

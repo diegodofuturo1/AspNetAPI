@@ -1,5 +1,9 @@
+@inject GlobalStateService GlobalState
+@inject ProtectedSessionStorage ProtectedSessionStore
+
 @inherits LayoutComponentBase
 
+@using Web.Data;
 @using Web.Compoments.Modals
 
 <PageTitle>InvestUnity</PageTitle>
@@ -11,8 +15,15 @@
 
     <main>
         <div class="top-row px-4">
-            <a class="btn btn-outline-primary" href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-            <a class="btn btn-outline-success" @onclick=(OpenModal)>Login</a>
+            @if (GlobalState == null || String.IsNullOrEmpty(GlobalState.Name))
+            {
+                <a class="btn btn-outline-success" @onclick=(OpenModal)>Login</a>
+            }
+            else
+            {
+                <div>Olá, @GlobalState.Name</div>
+                <a class="btn btn-outline-success" @onclick=(Logout)>Sair</a>
+            }
         </div>
 
         <article class="content px-4">
@@ -25,6 +36,14 @@
 
 @code {
     private bool showModal = false;
+    private string name = "";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var promise = await ProtectedSessionStore.GetAsync<string>("invest-unit-name");
+        name = promise.Value ?? "";
+    }
+
 
     private void SetShowModal(bool value)
     {
@@ -34,6 +53,11 @@
     private void OpenModal()
     {
         showModal = !showModal;
+    }
+
+    private void Logout()
+    {
+        GlobalState.Clear();
     }
 }
 

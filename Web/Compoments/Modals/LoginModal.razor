@@ -1,3 +1,9 @@
+@using Domain.Entities;
+@using Newtonsoft.Json;
+@using Web.Data;
+@inject GlobalStateService GlobalState
+@inject ProtectedSessionStorage ProtectedSessionStore
+
 <Modal
   Title=@("Login")
   Visible=@(Visible)
@@ -5,20 +11,23 @@
   ButtonTextSuccess=@("Entrar")
   ButtonTextCancel=@("Voltar")
   OnSave=@(TryLogin)
+  AlertText=@(alertText)
+  AlertType=@(alertType)
 >
+
   <form>
     <div class="form-group input-group">
       <div class="input-group-prepend">
         <span class="input-group-text">Email</span>
       </div>
-      <input name="email" class="form-control" placeholder="" type="text">
+    <input @bind-value=@(User.Email) name="email" class="form-control" placeholder="" type="text">
     </div>
 
     <div class="form-group input-group">
       <div class="input-group-prepend">
         <span class="input-group-text">Senha</span>
       </div>
-      <input name="password" class="form-control" placeholder="" type="password">
+      <input @bind-value=@(User.Password) name="password" class="form-control" placeholder="" type="password">
     </div>
   </form>
 </Modal>
@@ -29,9 +38,29 @@
     [Parameter]
     public EventCallback<bool> ShowModalChanged { get; set; }
 
-    private void TryLogin()
+    public User User { get; set; } = new User();
+    public string alertText { get; set; } = "";
+    public string alertType { get; set; } = "";
+
+    private async void TryLogin()
     {
-        
+        try
+        {
+            var service = new AuthService();
+
+            var response = await service.Signin(User);
+
+            GlobalState.Load(response);
+
+            StateHasChanged();
+
+            await ShowModalChanged.InvokeAsync(false);
+        }
+        catch (Exception ex) 
+        {
+            alertText = ex.Message;
+            alertType = "danger";
+        }
     }
 }
 

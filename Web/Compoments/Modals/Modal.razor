@@ -10,7 +10,13 @@
                     @ChildContent
                 </div>
                 <div class="modal-footer">
-                      <div class="button-header-group">
+                    @if (!String.IsNullOrEmpty(AlertText))
+                    { 
+                      <div class=@($"alert alert-{AlertType}") role="alert">
+                        @AlertText
+                      </div>
+                    }
+                    <div class="button-header-group">
                       <button type="button" class="btn btn-success" @onclick=@(SaveChanges)>@(ButtonTextSuccess)</button>
                         <button type="button" class="btn btn-secondary" @onclick=@(CancelChanges)>@(ButtonTextCancel)</button>
                     </div>
@@ -26,9 +32,12 @@
     [Parameter] public string Title { get; set; } = "Exemplo de Título";
     [Parameter] public string ButtonTextSuccess { get; set; } = "Confirmar";
     [Parameter] public string ButtonTextCancel { get; set; } = "Cancelar";
-    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public EventCallback OnSave { get; set; }
     [Parameter] public EventCallback<bool> ShowModalChanged { get; set; }
+
+    [Parameter] public string AlertType { get; set; } = "success";
+    [Parameter] public string? AlertText { get; set; }
 
     private void SaveChanges()
     {

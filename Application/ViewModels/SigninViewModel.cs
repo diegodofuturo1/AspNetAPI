@@ -3,10 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.ViewModels
 {
-    public class LoginViewModel
+    public class SigninViewModel
     {
-        [Required(ErrorMessage = "O nome não pode vazio.")]
-        public string Name { get; set; }
 
         [Required(ErrorMessage = "O login não pode vazio.")]
         public string Login { get; set; }
@@ -15,23 +13,21 @@ namespace Application.ViewModels
         public string Password { get; set; }
 
 
-    public LoginViewModel()
+    public SigninViewModel()
     {
 
     }
-    public LoginViewModel(UserDto domain)
+    public SigninViewModel(UserDto domain)
     {
       Login = domain.Email;
       Password = domain.Password;
-      Name= domain.Name;
     }
 
     public UserDto ToDomain()
     {
       return new UserDto {
         Email= this.Login,
-        Name = this.Name,
         Password = this.Password };
-    }
+      }
     }
 }
