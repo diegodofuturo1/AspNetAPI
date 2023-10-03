@@ -22,6 +22,19 @@ namespace Application.Controllers
     }
 
     [HttpGet]
+    [Route("get-history/{idInvestor}")]
+    public async Task<IActionResult> GetAsync(long idInvestor)
+    {
+      var list = await service.ReadHistory(idInvestor);
+      return Ok(new ResultViewModel()
+      {
+        Message = "Carteira obtidos(as) com sucesso",
+        Success = true,
+        Data = list
+      });
+    }
+
+    [HttpGet]
     [Route("get-all")]
     public async Task<IActionResult> GetAsync()
     {

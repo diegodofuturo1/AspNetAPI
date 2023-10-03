@@ -14,7 +14,7 @@ namespace Domain.Interfaces
         Task<T> SelectAsync(long id);
         Task<T> SelectAsync(object parameters);
         Task<IList<T>> SearchAsync(Expression<Func<T, bool>> expression, bool asNoTracking = true);
-
+        Task<List<Output>> RunQuery<Output>(string query, object parameters);
     }
 
     public interface IBuilderRepository : IBaseRepository<Builder>

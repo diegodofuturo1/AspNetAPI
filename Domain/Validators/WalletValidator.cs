@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 using FluentValidation;
 
 namespace Domain.Validators
@@ -25,15 +25,15 @@ namespace Domain.Validators
                 .GreaterThan(0)
                 .WithMessage("O investidor é inválido ou não existe.");
 
-            RuleFor(x => x.Value)
-                .NotNull()
-                .WithMessage("O valor não pode ser nulo.")
+            //RuleFor(x => x.Value)
+            //    .NotNull()
+            //    .WithMessage("O valor não pode ser nulo.")
 
-                .NotEmpty()
-                .WithMessage("O valor não pode ser vazio.")
+            //    .NotEmpty()
+            //    .WithMessage("O valor não pode ser vazio.")
 
-                .GreaterThan(0)
-                .WithMessage("O valor não pode ser nulo ou negativo.");
+            //    .GreaterThan(0)
+            //    .WithMessage("O valor não pode ser nulo ou negativo.");
         }
     }
 }

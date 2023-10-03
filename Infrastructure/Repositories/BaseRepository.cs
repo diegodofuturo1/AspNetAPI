@@ -7,20 +7,21 @@ using System.Reflection;
 using System.Data.SQLite;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using Infrastructure.Extensions;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Infrastructure.Extensions;
+using static Dapper.SqlMapper;
 
 namespace Infrastructure.Repositories
 {
     public class BaseRepository<T>: IBaseRepository<T> where T: Base
     {
         protected Type Type => typeof(T);
-        protected String Table => Type.Name;
+        protected string Table => Type.Name;
         protected List<PropertyInfo> Properties => Type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(x => x.Name != "Errors" && x.Name != "IsValid" && x.Name != "Id").ToList();
-        protected String Columns => String.Join(", ", Properties.Select(p => p.Name));
-        protected String Values => String.Join(", ", Properties.Select(p => $"@{p.Name}"));
-        protected String Sets => String.Join(", ", Properties.Select(p => $"{p.Name} = @{p.Name}"));
+        protected string Columns => String.Join(", ", Properties.Select(p => p.Name));
+        protected string Values => String.Join(", ", Properties.Select(p => $"@{p.Name}"));
+        protected string Sets => String.Join(", ", Properties.Select(p => $"{p.Name} = @{p.Name}"));
         protected SQLiteConnection GetConnection() => new("Data Source=C:\\Projects\\databases\\fatecapicontext.db");
 
          public virtual async Task<T> DeleteAsync(T entity)
@@ -110,5 +111,14 @@ namespace Infrastructure.Repositories
 
             return entity;
         }
-    }
+
+        public async Task<List<Output>> RunQuery<Output>(string query, object parameters)
+        {
+            using var connection = GetConnection();
+
+            var entity = await connection.QueryAsync<Output>(query, parameters);
+
+            return entity.ToList();
+        }
+  }
 }

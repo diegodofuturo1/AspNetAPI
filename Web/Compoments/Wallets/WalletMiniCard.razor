@@ -1,0 +1,38 @@
+<div class="wallet-card-main col-xl-3 col-sm-6 col-12" style="padding-bottom:20px">
+  <div class="card">
+    <div class="card-content">
+      <div class="card-body">
+        <div class="media d-flex">
+          <div class="align-self-center">
+            <i class="icon-pencil primary font-large-2 float-left"></i>
+          </div>
+          <div class="media-body text-right">
+            <h3>R$ @Value.ToString("0.00") <span class='additionalvalue'>@(AdditionalValue > 0 ? " + " + AdditionalValue.ToString("0.00"): String.Empty) </span></h3>
+            <span>@Title</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+    [Parameter]
+    public decimal Value { get; set; }
+    [Parameter]
+    public decimal AdditionalValue { get; set; }
+    [Parameter]
+    public string? Title { get; set; }
+}
+
+
+<style>
+    .wallet-card-main:hover {
+        transform: scale(1.05);
+        transition: 0.2s;
+    }
+
+    .additionalvalue {
+      color:limegreen;
+    }
+</style>

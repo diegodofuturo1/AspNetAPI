@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -18,8 +18,8 @@ namespace Infrastructure.Mappings
             builder.Property(x => x.IdInvestor)
                 .IsRequired();
 
-            builder.Property(x => x.Value)
-                .IsRequired();
+            //builder.Property(x => x.Value)
+            //    .IsRequired();
         }
     }
 }

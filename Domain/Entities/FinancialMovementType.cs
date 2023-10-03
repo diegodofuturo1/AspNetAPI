@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Wallet : Base
-    {
-        public int IdInvestor { get; set; }
+  public class FinancialMovementType: Base
+  {
+    public string Description { get; set; }
   }
 }

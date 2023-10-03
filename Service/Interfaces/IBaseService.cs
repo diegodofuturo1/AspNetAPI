@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 using Service.Dtos;
 using System;
 using System.Collections;
@@ -40,5 +40,6 @@ namespace Service.Interfaces
 
     public interface IWalletService : IBaseService<Wallet>
     {
+        Task<WalletDto> ReadHistory(long idInvestor);
     }
 }

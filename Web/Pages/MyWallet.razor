@@ -1,0 +1,65 @@
+@using Domain.Entities;
+@using Service.Dtos;
+@using Web.Compoments.Wallets
+@using Web.Data;
+
+@page "/myWallet";
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8" style="padding-bottom:20px">
+    <h3>Minha Carteira</h3>
+
+    <div>
+        Aqui temos os valores em conta e todo o histórico de movimentações financeiras:
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4">
+    <div class="row">
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="padding-bottom:20px; place-items:end;">
+          <button class="btn btn-primary btn-movfin">Depositar</button>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="padding-bottom:20px; place-items:end;">
+          <button class="btn btn-primary btn-movfin">Sacar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row main">
+    @if (WalletDto != null)
+    {
+        
+
+    <WalletCard Value=@(WalletDto.TotalBalance) Title=@("Patrimônio") Description=@("Este é o soma total do seus investimentos e o dinheiro em conta") />
+    <WalletCard Value=@(WalletDto.AccountBalance) Title=@("Saldo em Conta") Description=@("Este é valor em disponível para saque os novos investimentos") />
+    <WalletMiniCard Value=@(WalletDto.Deposits) Title=@("Depositos") />
+    <WalletMiniCard Value=@(WalletDto.Contributions) Title=@("Aportes") />
+    <WalletMiniCard Value=@(WalletDto.Payments) Title=@("Pagamentos") />
+    <WalletMiniCard Value=@(WalletDto.Removals) Title=@("Saques") />
+    }
+</div>
+
+@code {
+    [Parameter]
+    public WalletDto? WalletDto { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var service = new Service<Wallet>();
+
+        WalletDto = await service.GetBy<WalletDto>("get-history/1");
+    }
+}
+
+<style>
+
+  .btn-movfin {
+    width: 100%;
+  }
+</style>
+
+<style media="screen and (min-width: 767px)">
+  .main {
+    padding: 0px 20px;
+  }
+</style>

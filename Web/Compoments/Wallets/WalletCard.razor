@@ -1,0 +1,36 @@
+<div class="wallet-card-main col-xl-6 col-md-12" style="padding-bottom:20px">
+  <div class="card">
+    <div class="card-content">
+      <div class="card-body cleartfix">
+        <div class="media align-items-stretch">
+          <div class="align-self-center">
+            <h1 class="mr-2">R$ @Value.ToString("0.00")</h1>
+          </div>
+          <div class="media-body">
+            <h4>@Title</h4>
+            <span>@Description</span>
+          </div>
+          <div class="align-self-center">
+            <i class="icon-wallet success font-large-2"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+    [Parameter]
+    public decimal Value { get; set; }
+    [Parameter]
+    public string? Title { get; set; }
+    [Parameter]
+    public string? Description { get; set; }
+}
+
+<style>
+  .wallet-card-main:hover {
+    transform: scale(1.1);
+    transition: 0.7s;
+  }
+</style>

@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 using Domain.Interfaces;
 using Service.Interfaces;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ namespace Service.Services
 {
     public class BaseService<T> : IBaseService<T> where T : Base, new()
     {
-        private readonly IBaseRepository<T> repository;
+        protected readonly IBaseRepository<T> repository;
 
         public BaseService(IBaseRepository<T> repository)
         {
@@ -63,10 +63,5 @@ namespace Service.Services
     public class RevenueService : BaseService<Revenue>, IRevenueService
     {
         public RevenueService(IRevenueRepository repository) : base(repository) { }
-    }
-
-    public class WalletService : BaseService<Wallet>, IWalletService
-    {
-        public WalletService(IWalletRepository repository) : base(repository) { }
     }
 }

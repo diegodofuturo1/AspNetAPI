@@ -140,6 +140,22 @@ namespace Web.Data
         return new T();
       }
     }
+
+    public async Task<TResponse> GetBy<TResponse>(string endpoint) where TResponse : new()
+    {
+      var url = GetUrl(endpoint);
+      using var client = new HttpClient();
+      HttpResponseMessage response = await client.GetAsync(url);
+      response.EnsureSuccessStatusCode();
+      string responseBody = await response.Content.ReadAsStringAsync();
+
+      var result = JsonConvert.DeserializeObject<ResultViewModel<TResponse>>(responseBody);
+
+      if (result != null)
+        return result.Data;
+
+      return new();
+    }
   }
 
   public class ResultViewModel<T> where T: new()
