@@ -1,5 +1,5 @@
-﻿using Bogus;
-using Service.Dtos;
+using Bogus;
+using Domain.Dtos;
 using Bogus.DataSets;
 using Domain.Entities;
 using System.Collections.Generic;

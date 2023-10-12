@@ -1,6 +1,6 @@
 using System;
 using AutoMapper;
-using Service.Dtos;
+using Domain.Dtos;
 using Domain.Entities;
 using Domain.Interfaces;
 using Service.Interfaces;

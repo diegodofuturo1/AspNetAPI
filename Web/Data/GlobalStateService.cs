@@ -1,4 +1,4 @@
-using Application.ViewModels;
+using Domain.ViewModels;
 
 namespace Web.Data
 {

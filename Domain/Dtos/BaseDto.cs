@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
+using Domain.Entities;
 
-namespace Service.Dtos
+namespace Domain.Dtos
 {
     public class BaseDto<T> where T : Base, new()
     {

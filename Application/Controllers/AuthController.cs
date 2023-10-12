@@ -1,8 +1,8 @@
 using System;
+using Domain.ViewModels;
 using Application.Token;
 using Service.Interfaces;
 using System.Threading.Tasks;
-using Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 

@@ -2,7 +2,7 @@ using Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Service.Dtos
+namespace Domain.Dtos
 {
   public class WalletDto: Wallet
   {

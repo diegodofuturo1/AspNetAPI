@@ -1,9 +1,10 @@
 using System;
 using AutoMapper;
 using System.Text;
-using Service.Dtos;
+using Domain.Dtos;
 using Domain.Entities;
 using Domain.Interfaces;
+using Domain.ViewModels;
 using Service.Services;
 using Application.Token;
 using Service.Interfaces;
@@ -19,7 +20,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Application.ViewModels;
 
 namespace Application
 {

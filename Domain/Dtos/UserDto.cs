@@ -1,6 +1,6 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
-namespace Service.Dtos
+namespace Domain.Dtos
 {
     public class UserDto
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Application.ViewModels
+namespace Domain.ViewModels
 {
   public class TokenViewModel
   {

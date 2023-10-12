@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 using Domain.Entities;
-using Application.ViewModels;
+using Domain.ViewModels;
 
 namespace Web.Data
 {

@@ -1,7 +1,6 @@
-﻿using Application.ViewModels;
 using AutoMapper;
+using Domain.Dtos;
 using Domain.Entities;
-using Service.Dtos;
 
 namespace Teste.Configuration
 {

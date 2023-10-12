@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Service.Dtos;
+using System;
+using Domain.Dtos;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Service.Interfaces
 {

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.ViewModels
+namespace Domain.ViewModels
 {
     public class UpdateUserViewModel
     {

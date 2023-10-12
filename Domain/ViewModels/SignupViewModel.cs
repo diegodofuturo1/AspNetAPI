@@ -1,10 +1,12 @@
-using Service.Dtos;
+using Domain.Dtos;
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.ViewModels
+namespace Domain.ViewModels
 {
-    public class SigninViewModel
+    public class SignupViewModel
     {
+        [Required(ErrorMessage = "O nome não pode vazio.")]
+        public string Name { get; set; }
 
         [Required(ErrorMessage = "O login não pode vazio.")]
         public string Login { get; set; }
@@ -13,20 +15,22 @@ namespace Application.ViewModels
         public string Password { get; set; }
 
 
-    public SigninViewModel()
+    public SignupViewModel()
     {
 
     }
-    public SigninViewModel(UserDto domain)
+    public SignupViewModel(UserDto domain)
     {
       Login = domain.Email;
       Password = domain.Password;
+      Name= domain.Name;
     }
 
     public UserDto ToDomain()
     {
       return new UserDto {
         Email= this.Login,
+        Name = this.Name,
         Password = this.Password };
       }
     }

@@ -1,8 +1,7 @@
+using Domain.Dtos;
 using Domain.Entities;
 using Domain.Interfaces;
-using Service.Dtos;
 using Service.Interfaces;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Service.Services

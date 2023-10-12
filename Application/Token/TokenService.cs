@@ -4,7 +4,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
-using Application.ViewModels;
+using Domain.ViewModels;
 
 namespace Application.Token
 {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Service.Dtos
+namespace Domain.Dtos
 {
   public class WalletHistoryDto
   {
