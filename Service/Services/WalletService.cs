@@ -2,13 +2,21 @@ using Domain.Dtos;
 using Domain.Entities;
 using Domain.Interfaces;
 using Service.Interfaces;
+using System;
 using System.Threading.Tasks;
 
 namespace Service.Services
 {
   public class WalletService: BaseService<Wallet>, IWalletService
   {
-    public WalletService(IWalletRepository repository) : base(repository) { }
+    private readonly IFinancialMovementRepository FinancialMovementRepository;
+
+    public WalletService(
+      IWalletRepository repository,
+      IFinancialMovementRepository _financialMovementRepository
+    ) : base(repository) {
+      FinancialMovementRepository = _financialMovementRepository;
+    }
 
     public async Task<WalletDto> ReadHistory(long idInvestor)
     {
@@ -30,6 +38,32 @@ namespace Service.Services
       return new WalletDto() {
         History = history,
       };
+    }
+
+    private async Task<FinancialMovement> InsertFinancialMovement(int idWallet, short idType, decimal value)
+    {
+      return await FinancialMovementRepository.InsertAsync(new FinancialMovement()
+      {
+        Active= true,
+        IdFinancialMovementType= idType,
+        Value = value,
+        MovementDate = DateTime.Now,
+        IdWallet = idWallet
+      });
+    }
+
+    public async Task<WalletDto> Deposit(int idWallet, decimal value)
+    {
+      await InsertFinancialMovement(idWallet, 1, value);
+
+      return await ReadHistory(idWallet);
+    }
+
+    public async Task<WalletDto> Retreat(int idWallet, decimal value)
+    {
+      await InsertFinancialMovement(idWallet, 2, value);
+
+      return await ReadHistory(idWallet);
     }
   }
 }

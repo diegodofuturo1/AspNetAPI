@@ -3,11 +3,11 @@ using Newtonsoft.Json;
 
 namespace Web.Data
 {
-  public class Service<T> where T: Base, new()
+  public class ApiService<T> where T: Base, new()
   {
     private readonly string domain = "https://localhost:44342/{0}/{1}";
 
-    public Service()
+    public ApiService()
     {
       domain = string.Format(domain, new T().GetType().Name.ToLower(), "{0}");
     }
@@ -155,6 +155,32 @@ namespace Web.Data
         return result.Data;
 
       return new();
+    }
+
+    public async Task<TResponse> Post<TResponse>(string endpoint, object body) where TResponse : new()
+    {
+      try
+      {
+        var url = GetUrl(endpoint);
+        using (var client = new HttpClient())
+        {
+          HttpResponseMessage response = await client.PostAsJsonAsync(url, body);
+          response.EnsureSuccessStatusCode();
+          string responseBody = await response.Content.ReadAsStringAsync();
+
+          var result = JsonConvert.DeserializeObject<ResultViewModel<TResponse>>(responseBody);
+
+          if (result != null)
+            return result.Data;
+
+          return new();
+        }
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine(ex.Message);
+        return new();
+      }
     }
   }
 

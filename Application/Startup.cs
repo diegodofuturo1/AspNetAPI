@@ -92,6 +92,7 @@ namespace Application
       services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
       services.AddScoped<IInvestorRepository, InvestorRepository>();
       services.AddScoped<IWalletRepository, WalletRepository>();
+      services.AddScoped<IFinancialMovementRepository, FinancialMovementRepository>();
 
       #endregion
 

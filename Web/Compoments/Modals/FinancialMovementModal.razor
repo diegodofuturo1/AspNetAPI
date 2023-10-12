@@ -1,0 +1,87 @@
+@using Web.Data;
+@using Domain.Dtos;
+@using Domain.Entities;
+@using Newtonsoft.Json;
+
+<Modal Title=@(Mode)
+  Visible=@(Visible)
+  ShowModalChanged=@(ShowModalChanged)
+  ButtonTextSuccess=@("Enviar")
+  ButtonTextCancel=@("Cancelar")
+  OnSave=@(Save)
+  AlertText=@(alertText)
+  AlertType=@(alertType)
+>
+
+  <form>
+    <span>Saldo: R$ @CurrentValue.ToString("0.00")</span>
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Valor em R$ </span>
+      </div>
+    <input
+      step="@(Mode == "Retirar" ? 0.01 : 500)"
+      min="@(Mode == "Retirar" ? 1 : 500)"
+      max="@(Mode == "Retirar" ? CurrentValue : string.Empty)"
+      @bind-value=@(value)
+      name="value"
+      class="form-control"
+      placeholder="0.00"
+      type="number"
+    >
+    </div>
+  </form>
+</Modal>
+
+@code {
+    private decimal value;
+
+    [Parameter]
+    public string Mode { get; set; }
+
+    [Parameter]
+    public decimal CurrentValue { get; set; }
+
+    [Parameter]
+    public bool Visible { get; set; } = false;
+
+    [Parameter]
+    public EventCallback<bool> ShowModalChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<WalletDto> WalletChanged { get; set; }
+
+    public string alertText { get; set; } = string.Empty;
+    public string alertType { get; set; } = string.Empty;
+
+
+    private async void Save()
+    {
+        try
+        {
+            var endpoint = Mode == "Depositar" ? "post-deposit" : "post-retreat";
+            var service = new ApiService<Wallet>();
+            var wallet = await service.Post<WalletDto>(endpoint, new { idWallet = 1, value });
+
+            await WalletChanged.InvokeAsync(wallet);
+            await ShowModalChanged.InvokeAsync(false);
+
+            StateHasChanged();
+        }
+        catch (Exception ex) 
+        {
+            alertText = ex.Message;
+            alertType = "danger";
+        }
+    }
+}
+
+<style>
+  form {
+    padding: 0px 10px;
+  }
+
+  .input-group {
+    margin: 10px 0px;
+  }
+</style>

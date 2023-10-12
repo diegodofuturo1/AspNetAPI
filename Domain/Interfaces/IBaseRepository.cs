@@ -46,4 +46,9 @@ namespace Domain.Interfaces
     {
 
     }
+  
+    public interface IFinancialMovementRepository : IBaseRepository<FinancialMovement>
+    {
+
+    }
 }

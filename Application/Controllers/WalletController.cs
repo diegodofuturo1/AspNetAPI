@@ -21,16 +21,44 @@ namespace Application.Controllers
       this.service = service;
     }
 
+    [HttpPost]
+    [Route("post-deposit")]
+    public async Task<IActionResult> PostDeposit([FromBody] FinancialMovementViewModel viewModel)
+    {
+      var wallet = await service.Deposit(viewModel.IdWallet, viewModel.Value);
+
+      return Ok(new ResultViewModel()
+      {
+        Message = "Depósito realizado com sucesso",
+        Success = true,
+        Data = wallet
+      });
+    }
+
+    [HttpPost]
+    [Route("post-retreat")]
+    public async Task<IActionResult> PostRetreat([FromBody] FinancialMovementViewModel viewModel)
+    {
+      var wallet = await service.Retreat(viewModel.IdWallet, viewModel.Value);
+
+      return Ok(new ResultViewModel()
+      {
+        Message = "Retirada realizada com sucesso",
+        Success = true,
+        Data = wallet
+      });
+    }
+
     [HttpGet]
     [Route("get-history/{idInvestor}")]
     public async Task<IActionResult> GetAsync(long idInvestor)
     {
-      var list = await service.ReadHistory(idInvestor);
+      var wallet = await service.ReadHistory(idInvestor);
       return Ok(new ResultViewModel()
       {
         Message = "Carteira obtidos(as) com sucesso",
         Success = true,
-        Data = list
+        Data = wallet
       });
     }
 

@@ -18,7 +18,7 @@ Aqui temos as ofertas disponíveis para você no momento:
 
     protected override async Task OnInitializedAsync()
     {
-        var service = new Service<Enterprise>();
+        var service = new ApiService<Enterprise>();
 
         enterprises = await service.GetAll();
     }

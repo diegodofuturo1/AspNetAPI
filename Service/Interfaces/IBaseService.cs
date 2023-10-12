@@ -37,5 +37,7 @@ namespace Service.Interfaces
     public interface IWalletService : IBaseService<Wallet>
     {
         Task<WalletDto> ReadHistory(long idInvestor);
+        Task<WalletDto> Deposit(int idWallet, decimal value);
+        Task<WalletDto> Retreat(int idWallet, decimal value);
     }
 }
